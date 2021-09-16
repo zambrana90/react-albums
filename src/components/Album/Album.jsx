@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // import { useParams } from "react-router-dom";    ---------Error con useParams()---------------
 import { getAlbum, getAlbumPhotos } from "../../services/AlbumsService";
 
@@ -31,15 +32,29 @@ const Album = ({ match: { params } }) => {
       {loading ? (
         <p>Loading Album...</p>
       ) : (
-        <div className="Album__data">
+        <div className="Album__data mt-5">
           <h1>{album.title}</h1>
         </div>
       )}
+      <div className="Album__buttons m-3 d-flex justify-content-end">
+        <Link
+          to={`/album/${Number(albumId) - 1}`}
+          className="btn btn-outline-dark m-1"
+        >
+          Previous album
+        </Link>
+        <Link
+          to={`/album/${Number(albumId) + 1}`}
+          className="btn btn-outline-dark m-1"
+        >
+          Next album
+        </Link>
+      </div>
       {loadingPhotos ? (
         <p>Loading Photos...</p>
       ) : photos && photos.length > 0 ? (
         photos.map((photo) => (
-          <div className="col-sm-4 my-3" key={photo.title}>
+          <div className="Album__photos col-sm-4 my-3" key={photo.title}>
             <div className="card h-100" style={{ width: "18rem" }}>
               <img
                 src={photo.thumbnailUrl}
@@ -55,6 +70,21 @@ const Album = ({ match: { params } }) => {
       ) : (
         <h1>No photos</h1>
       )}
+
+      <div className="Album__buttons m-3 d-flex justify-content-end">
+        <Link
+          to={`/album/${Number(albumId) - 1}`}
+          className="btn btn-outline-dark m-1"
+        >
+          Previous album
+        </Link>
+        <Link
+          to={`/album/${Number(albumId) + 1}`}
+          className="btn btn-outline-dark m-1"
+        >
+          Next album
+        </Link>
+      </div>
     </div>
   );
 };

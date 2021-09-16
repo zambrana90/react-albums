@@ -15,7 +15,7 @@ const Albums = () => {
   }, [albums]);
 
   return (
-    <div className="Albums row">
+    <div className="Albums row mt-5">
       {loading ? (
         <p>Loading Albums...</p>
       ) : (
@@ -26,7 +26,7 @@ const Albums = () => {
                 <div className="card h-100" style={{ width: "18rem" }}>
                   <div className="card-body d-flex flex-column justify-content-between">
                     <h5 className="card-title">{album.title}</h5>
-                    <Link to={`/album/${album.id}`} className="btn btn-primary">
+                    <Link to={`/album/${album.id}`} className="btn btn-dark">
                       See details
                     </Link>
                   </div>
