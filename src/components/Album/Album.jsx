@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 // import { useParams } from "react-router-dom";    ---------Error con useParams()---------------
 import { getAlbum, getAlbumPhotos } from "../../services/AlbumsService";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Album = ({ match: { params } }) => {
   const { albumId } = params;
@@ -10,6 +11,8 @@ const Album = ({ match: { params } }) => {
   const [loading, setLoading] = useState(true);
   const [photos, setPhotos] = useState(null);
   const [loadingPhotos, setLoadingPhotos] = useState(true);
+
+  const { lightMode } = useContext(ThemeContext);
 
   useEffect(() => {
     getAlbum(albumId).then((res) => setAlbum(res));
@@ -30,22 +33,28 @@ const Album = ({ match: { params } }) => {
   return (
     <div className="Album row">
       {loading ? (
-        <p>Loading Album...</p>
+        <p style={{ color: lightMode ? "black" : "white" }}>Loading Album...</p>
       ) : (
         <div className="Album__data mt-5">
-          <h1>{album.title}</h1>
+          <h1 style={{ color: lightMode ? "black" : "white" }}>
+            {album.title}
+          </h1>
         </div>
       )}
-      <div className="Album__buttons m-3 d-flex justify-content-end">
+      <div className="Album__buttons p-3 d-flex justify-content-end">
         <Link
           to={`/album/${Number(albumId) - 1}`}
-          className="btn btn-outline-dark m-1"
+          className={`btn ${
+            lightMode ? "btn-outline-dark" : "btn-outline-light"
+          } m-1`}
         >
           Previous album
         </Link>
         <Link
           to={`/album/${Number(albumId) + 1}`}
-          className="btn btn-outline-dark m-1"
+          className={`btn ${
+            lightMode ? "btn-outline-dark" : "btn-outline-light"
+          } m-1`}
         >
           Next album
         </Link>
@@ -54,7 +63,10 @@ const Album = ({ match: { params } }) => {
         <p>Loading Photos...</p>
       ) : photos && photos.length > 0 ? (
         photos.map((photo) => (
-          <div className="Album__photos col-sm-4 my-3" key={photo.title}>
+          <div
+            className="Album__photos col-sm-4 py-3 d-flex justify-content-center"
+            key={photo.title}
+          >
             <div className="card h-100" style={{ width: "18rem" }}>
               <img
                 src={photo.thumbnailUrl}
@@ -74,13 +86,17 @@ const Album = ({ match: { params } }) => {
       <div className="Album__buttons m-3 d-flex justify-content-end">
         <Link
           to={`/album/${Number(albumId) - 1}`}
-          className="btn btn-outline-dark m-1"
+          className={`btn ${
+            lightMode ? "btn-outline-dark" : "btn-outline-light"
+          } m-1`}
         >
           Previous album
         </Link>
         <Link
           to={`/album/${Number(albumId) + 1}`}
-          className="btn btn-outline-dark m-1"
+          className={`btn ${
+            lightMode ? "btn-outline-dark" : "btn-outline-light"
+          } m-1`}
         >
           Next album
         </Link>

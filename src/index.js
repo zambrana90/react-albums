@@ -5,11 +5,14 @@ import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ThemeContextProvider from "./contexts/ThemeContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <ThemeContextProvider>
+        <App />
+      </ThemeContextProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

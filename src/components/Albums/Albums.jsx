@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { getAlbums } from "../../services/AlbumsService.js";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const Albums = () => {
   const [albums, setAlbums] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { lightMode } = useContext(ThemeContext);
 
   useEffect(() => {
     getAlbums().then((res) => setAlbums(res));
@@ -15,7 +18,9 @@ const Albums = () => {
   }, [albums]);
 
   return (
-    <div className="Albums row mt-5">
+    <div className={`Albums row mt-5 ${
+      lightMode ? "navbar-light bg-light" : "navbar-dark bg-dark"
+    }`}>
       {loading ? (
         <p>Loading Albums...</p>
       ) : (
